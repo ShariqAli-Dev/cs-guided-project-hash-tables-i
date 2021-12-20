@@ -54,5 +54,37 @@ def are_words_sorted(words, alpha_order):
     Output:
     bool
     """
-    # Your code here
+    # Build a dictionary structure to look up the index of each character
+    # What do i know? The character
+    # What do i want tolook up? its index in the alphabet
+    # so my dictionary has characters for keys, and alphabet indices for values
+    alphabet = {letter: i for (i, letter) in enumerate(alpha_order)}
 
+    # starting at the beginning of the words list ,look through and compare each word to the next..
+    for i in range(len(words)-1):
+        word1 = words[1]
+        word2 = words[i+1]
+
+        # Compare the two words letter by letter as needed:
+        for j in range(0,min(len(word1), len(word2))):
+            letter1 = word1[j]
+            letter2 = word2[j]
+            print(f'comparing {letter1} and {letter2}')
+            # if the letters are the same, keep moving
+            if letter1 != letter2:       
+                # otherwise, compare alphabet[letter1] > alphabet[letter2] 
+                if alphabet[letter1] > alphabet[letter2]:
+                    return False
+                break
+            # otherwise, if any letters we compare are not alphabetical, return false
+    
+        # if all the letters match, then compare by length
+        if len(word1) > len(word2):
+            return False
+
+    # looks like everything is good:
+    return True
+
+print(are_words_sorted(["lambda","school"], "hlabcdefgijkmnopqrstuvwxyz")) #--> True
+# print(are_words_sorted(["were","where","yellow"], "habcdefgijklmnopqrstuvwxyz")) #--> False
+# print(are_words_sorted(["lambda","lamb"], "abcdefghijklmnopqrstuvwxyz")) #--> False
